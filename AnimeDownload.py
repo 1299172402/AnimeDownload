@@ -7,7 +7,7 @@ ss = "0"
 AnimeTitle = ""
 
 ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
-cookies = "_uuid=0AC80ECC-86FA-2D77-4F35-9E88DF74453776518infoc; buvid3=2CD9F63D-DE04-4DFA-BF3A-2781BA418DB5143076infoc; CURRENT_FNVAL=80; blackside_state=1; sid=5phw8t6f; bsource=search_bing; DedeUserID=498766638; DedeUserID__ckMd5=a64ef491fd3d23d5; SESSDATA=bb3a2680%2C1621230249%2C3d240*b1; bili_jct=e8340d45b364f5851b5a9d5a8f1e0907; LIVE_BUVID=AUTO7716056782499822; CURRENT_QUALITY=80; rpdid=|(k|mmJlY||m0J'uY|lY~)kYk; PVID=3; bfe_id=1bad38f44e358ca77469025e0405c4a6"
+cookies = "_uuid=xxx; buvid3=xxx; CURRENT_FNVAL=80; blackside_state=1; sid=5phw8t6f; bsource=search_bing; DedeUserID=498766638; DedeUserID__ckMd5=axxx; SESSDATA=xxx; bili_jct=e8340d45xxxxxx907; LIVE_BUVID=AUxxxxx822; CURRENT_QUALITY=80; rpdid=|(k|mmJlY||m0J'uY|lY~)kYk; PVID=3; bfe_id=1xxxxa6"
 headers = {
     "Origin": "https://www.bilibili.com",
     "Referer": f"https://www.bilibili.com/bangmumi/play/ss{ss}",
