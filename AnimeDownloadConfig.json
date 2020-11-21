@@ -1,0 +1,31 @@
+{
+    "animation": {
+        "md": [],
+        "qn": "80",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+    },
+    "aria2c": {
+        "allocation": "falloc",
+        "aria2c_path": "D:\\HHT\\coooooding\\AnimationDownload\\aria2c.exe",
+        "cookies_path": "D:\\HHT\\coooooding\\AnimationDownload\\bilibili.cookies",
+        "currentdownload": "10",
+        "serverconnection": "16",
+        "split": "20",
+        "aria2c_ua": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+    },
+    "danmaku2ass": {
+        "danmaku2ass_path": "D:\\HHT\\coooooding\\AnimationDownload\\danmaku2ass.exe",
+        "danmaku2ass_option": ""
+    },
+    "work": {
+        "is_xml_download": "y",
+        "is_danmaku2ass": "y",
+        "is_admination_download": "y"
+    },
+    "path": {
+        "workpath": "D:\\HHT\\coooooding\\AnimationDownload\\TEST"
+    },
+    "other":{
+        "epinfo_output": ""
+    }
+}
