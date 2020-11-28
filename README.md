@@ -4,9 +4,13 @@
 
 最大带宽批量下载B站flv格式视频（目前仅番剧），使用aria2c，多线程，自动重命名，批量下载弹幕（xml），可转换为ass，视频flv清晰度可选
 
-## 下载地址：https://zhiyuyu.lanzoui.com/iMy47imr0if 【2020.11.21】
+## 下载地址：https://zhiyuyu.lanzoui.com/is8vgiuqcof 【2020.11.28】
 
-首次使用：
+### 如何使用？
+
+打开AnimeDownload.exe输入`番剧的md号`和`是否为区域限定(仅小写y)`即可以开始下载
+
+### 首次使用：
 
 打开有谷歌内核的浏览器，登录哔哩哔哩，按F12，到network选项卡，点一个抓到的链接，到Request Headers里找cookie，把他的值替换bilibili.cookies文件中的内容
 
@@ -65,8 +69,6 @@
     }
 }
  ```
-
-以后打开AnimeDownload.exe输入`番剧的md号`和`是否为区域限定(仅小写y)`即可以开始下载
 
 ---
 
