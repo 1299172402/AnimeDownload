@@ -5,6 +5,7 @@ import json
 md = "0"
 ss = "0"
 qn = "80"
+tw = ""
 AnimeTitle = ""
 ua = ""
 cookies = ""
@@ -23,48 +24,51 @@ headers_cookies = {
 }
 
 epsinfo = []
-workpath = ""
-danmaku2ass_path = ""
-danmaku2ass_option = ""
+download_path = ""
 animation_path = r""
 
-aria2c_path = r""
 currentdownload = "10" # 同时文件下载数
 split = "20" # 单任务线程数
 allocation = "falloc" # aria2c --help=file-allocation
 serverconnection = "16" # 服务器连接数
-cookies_path = r""
 aria2c_ua = ""
+
+danmaku2ass_option = ""
 
 is_xml_download = "y"
 is_danmaku2ass = "y"
 is_admination_download = "y"
 
 epinfo_output = ""
+remove_download_url = ""
+
+workpath = os.path.dirname(os.path.abspath(__file__))
+danmaku2ass_path = os.path.join(workpath, "danmaku2ass.py")
+# danmaku2ass_path = os.path.join(workpath, "danmaku2ass.exe")
+aria2c_path = os.path.join(workpath, "aria2c.exe")
+cookies_path = os.path.join(workpath, "bilibili.cookies")
+
 
 def init():
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "AnimeDownloadConfig.json"), "r", encoding="utf-8") as f:
+    with open(os.path.join(workpath, "AnimeDownloadConfig.json"), "r", encoding="utf-8") as f:
         config = json.loads(f.read())
 
-    global workpath
-    workpath = config["path"]["workpath"]
+    global download_path
+    download_path = config["path"]["download_path"]
 
     global md, qn, ua
     # md = "0"
     qn = config["animation"]["qn"]
     ua = config["animation"]["ua"]
 
-    global allocation, aria2c_path, cookies_path, currentdownload, serverconnection, split, aria2c_ua
+    global allocation, currentdownload, serverconnection, split, aria2c_ua
     allocation = config["aria2c"]["allocation"]
-    aria2c_path = config["aria2c"]["aria2c_path"]
-    cookies_path = config["aria2c"]["cookies_path"]
     currentdownload = config["aria2c"]["currentdownload"]
     serverconnection = config["aria2c"]["serverconnection"]
     split = config["aria2c"]["split"]
     aria2c_ua = config["aria2c"]["aria2c_ua"]
 
-    global danmaku2ass_path, danmaku2ass_option
-    danmaku2ass_path = config["danmaku2ass"]["danmaku2ass_path"]
+    global danmaku2ass_option
     danmaku2ass_option = config["danmaku2ass"]["danmaku2ass_option"]
 
     global is_xml_download, is_danmaku2ass, is_admination_download
@@ -72,8 +76,9 @@ def init():
     is_danmaku2ass = config["work"]["is_danmaku2ass"]
     is_admination_download = config["work"]["is_admination_download"]
 
-    global epinfo_output
+    global epinfo_output, remove_download_url
     epinfo_output = config["other"]["epinfo_output"]
+    remove_download_url = config["other"]["remove_download_url"]
 
     with open(cookies_path, "r") as f:
         cookies = f.read()
@@ -104,7 +109,7 @@ def GetAnimeInfo():
     AnimeTitle = TitleRename(AnimeTitle)
 
     global animation_path
-    animation_path = os.path.join(workpath, f"s{ss}-{AnimeTitle}")
+    animation_path = os.path.join(download_path, f"s{ss}-{AnimeTitle}")
     if not os.path.exists(animation_path):
         os.makedirs(animation_path)
 
@@ -139,28 +144,39 @@ def DanmakuDownload():
             print(f"[xml download SUCCEED] {xml}")
 
 def Danmaku2ass():
-    command = f"""{danmaku2ass_path} "{animation_path}" {danmaku2ass_option} """
+    command = f"""python "{danmaku2ass_path}" "{animation_path}" {danmaku2ass_option} """
+    # print(command)
     os.system(command)
 
 def AnimationDownloadList():
     global epsinfo, ss
-    f = open(os.path.join(workpath, f"s{ss}.txt"), "w", encoding="utf-8")
+    f = open(os.path.join(download_path, f"s{ss}.txt"), "w", encoding="utf-8")
     for ep in epsinfo:
         cid = ep["cid"]
         aid = ep["aid"]
         blv = ep["title"] + ".flv"
-        url = f"https://api.bilibili.com/pgc/player/web/playurl?cid={cid}&qn={qn}&fourk=1&avid={aid}"
+
+        if tw != "y":
+            url = f"https://api.bilibili.com/pgc/player/web/playurl?cid={cid}&qn={qn}&fourk=1&avid={aid}"
+        else:
+            url = f"https://bilibili-tw-api.kghost.info/pgc/player/web/playurl?cid={cid}&qn={qn}&fourk=1&avid={aid}"
+        
         res = json.loads(requests.get(url, headers=headers_cookies).text)
         if res["code"] != 0:
             print(f"[{blv}] {res}")
-            continue
-        downloadurl = res["result"]["durl"][0]["backup_url"][1]
+            print(res["code"])
+
+        if tw != "y":
+            downloadurl = res["result"]["durl"][0]["backup_url"][1]
+        else:
+            downloadurl = res["result"]["durl"][0]["url"]
+        
         f.write(downloadurl + "\n")
         f.write(f""" out={blv} \n""")
 
 def AnimationDownload():
     global ss, aria2c_path, currentdownload, split, allocation, serverconnection, cookies_path, aria2c_ua
-    file = os.path.join(workpath, f"s{ss}.txt")
+    file = os.path.join(download_path, f"s{ss}.txt")
     command = f"""{aria2c_path} --referer="https://www.bilibili.com/" --input-file="{file}" --file-allocation={allocation} --dir="{animation_path}" -c --max-concurrent-downloads={currentdownload} --split={split} --load-cookies={cookies_path} --max-connection-per-server={serverconnection} --user-agent={aria2c_ua} """
     print(command)
     os.system(command)
@@ -179,8 +195,13 @@ def main():
     for ep in epsinfo:
         print(ep)
     if epinfo_output == "y":
-        with open(os.path.join(workpath, f"ss{ss}.json"), "w", encoding="utf-8") as f:
-            f.write(json.dumps(epsinfo))
+        with open(os.path.join(download_path, f"ss{ss}.json"), "w", encoding="utf-8") as f:
+            f.write(json.dumps(epsinfo, ensure_ascii=False, indent=4))
+            # ensure_ascii=False 不转码中文
+            # indent=4 对齐宽度为4
+
+    global tw
+    tw = input("tw[y/n]: ")
 
     if is_xml_download == "y":
         DanmakuDownload()
@@ -191,5 +212,14 @@ def main():
         AnimationDownloadList()
         AnimationDownload()
 
+    if remove_download_url == "y":
+        if os.path.exists(os.path.join(download_path, f"s{ss}.txt")):
+            os.remove(os.path.join(download_path, f"s{ss}.txt"))
+
 if __name__ == '__main__':
     main()
+    author = {
+        "name": "ZhiyuShang",
+        "referer": "https://github.com/1299172402/AnimeDownload",
+        "license": "Please let me know if you intend to release revised program."
+    }

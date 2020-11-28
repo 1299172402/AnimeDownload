@@ -1,31 +1,51 @@
 {
     "animation": {
         "md": [],
-        "qn": "80",
+        "qn": "112",
+        "qn_?": " 画质:qn 4K   :120    1080p60:116    1080p+:112    720p60:74",
+        "qn_??": "画质:qn 1080p:80     720p   :64     480p  :32     360p  :16",
         "ua": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
     },
     "aria2c": {
         "allocation": "falloc",
-        "aria2c_path": "D:\\HHT\\coooooding\\AnimationDownload\\aria2c.exe",
-        "cookies_path": "D:\\HHT\\coooooding\\AnimationDownload\\bilibili.cookies",
+        "allocation_?": "none:不预先分配空间",
+        "allocation_??": "falloc:预先分配空间",
         "currentdownload": "10",
+        "currentdownload_?": "同时文件下载数",
         "serverconnection": "16",
+        "serverconnection_?": "服务器连接数，最大16",
         "split": "20",
+        "split_?": "单任务线程数",
         "aria2c_ua": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
     },
     "danmaku2ass": {
-        "danmaku2ass_path": "D:\\HHT\\coooooding\\AnimationDownload\\danmaku2ass.exe",
-        "danmaku2ass_option": ""
+        "danmaku2ass_option": "",
+        "danmaku2ass_option_?": "来自 https://github.com/m13253/danmaku2ass",
+        "danmaku2ass_option_??": "-fs 50 -a 30",
+        "danmaku2ass_option_???": "像命令行参数一样可以控制产生的弹幕",
+        "danmaku2ass_option_????": "如_??示例可调整弹幕大小为50，不透明度为30",
+        "danmaku2ass_option_?????": "其他详细命令可到_?处地址查看",
+        "danmaku2ass_option_??????": "再次谢谢原作者"
     },
     "work": {
-        "is_xml_download": "y",
-        "is_danmaku2ass": "y",
-        "is_admination_download": "y"
+        "is_xml_download": "",
+        "is_xml_download_?": "是否下载弹幕（仅小写y）",
+        "is_danmaku2ass": "",
+        "is_danmaku2ass_?": "是否把弹幕转换为字幕（仅小写y）",
+        "is_admination_download": "y",
+        "is_admination_download_?": "是否下载番剧视频（仅小写y）"
     },
     "path": {
-        "workpath": "D:\\HHT\\coooooding\\AnimationDownload\\TEST"
+        "download_path": "D:/HHT/哔哩哔哩动画/AnimeDownload",
+        "download_path_?": "番剧保存目录，路径中如果有“反斜杠”请改为“斜杠”，目录不存在将自动创建"
     },
     "other":{
-        "epinfo_output": ""
+        "epinfo_output": "",
+        "remove_download_url": "y"
+    },
+    "author":{
+        "name": "ZhiyuShang",
+        "referer": "https://github.com/1299172402/AnimeDownload",
+        "license": "Please let me know if you intend to release revised program."
     }
 }
