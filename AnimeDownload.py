@@ -159,7 +159,7 @@ def AnimationDownloadList():
         if tw != "y":
             url = f"https://api.bilibili.com/pgc/player/web/playurl?cid={cid}&qn={qn}&fourk=1&avid={aid}"
         else:
-            url = f"https://bilibili-tw-api.kghost.info/pgc/player/web/playurl?cid={cid}&qn={qn}&fourk=1&avid={aid}"
+            url = f"https://api.qiu.moe/pgc/player/web/playurl?cid={cid}&qn={qn}&fourk=1&avid={aid}"
         
         res = json.loads(requests.get(url, headers=headers_cookies).text)
         if res["code"] != 0:
